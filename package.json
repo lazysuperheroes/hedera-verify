@@ -1,0 +1,47 @@
+{
+  "name": "@lazysuperheroes/hedera-verify",
+  "version": "0.1.0",
+  "description": "Verify Hedera smart contracts on Sourcify (sourcify.dev V2 API) — engine, CLI, and deploy-time hook for Hardhat-built Hedera contracts.",
+  "license": "ISC",
+  "author": "Stowerling <stowerling@hbarbarians.co.uk>",
+  "homepage": "https://github.com/lazysuperheroes/hedera-verify#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazysuperheroes/hedera-verify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lazysuperheroes/hedera-verify/issues"
+  },
+  "main": "src/index.js",
+  "bin": {
+    "hedera-verify": "bin/hedera-verify.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "verify.config.example.js",
+    "AGENT-MIGRATION.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node test/smoke.js"
+  },
+  "keywords": [
+    "hedera",
+    "sourcify",
+    "hashscan",
+    "verification",
+    "smart-contract",
+    "hardhat",
+    "hts",
+    "evm"
+  ],
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.0.0"
+  }
+}
