@@ -18,12 +18,25 @@ const { resolveBuildInfo, findDbgFiles, listArtifacts, defaultArtifactsRoot } = 
 const { resolveEvmAddress, getContractEvmAddress } = require('./mirror');
 const { chainIdForEnv, hashscanNetwork, mirrorBaseUrl, DEFAULT_API_URL, DEFAULT_BROWSER_URL } = require('./chains');
 const { loadConfig, buildRegistryTargets, parseAdHocTarget } = require('./config');
+const {
+	minimalProxyRuntime,
+	parseMinimalProxyImplementation,
+	isMinimalProxyFor,
+	getOnchainRuntimeBytecode,
+	resolveProxyStatus,
+} = require('./proxy');
 
 module.exports = {
 	// core
 	verifyContract,
 	verifyContracts,
 	checkVerified,
+	// EIP-1167 minimal-proxy / clone resolution
+	minimalProxyRuntime,
+	parseMinimalProxyImplementation,
+	isMinimalProxyFor,
+	getOnchainRuntimeBytecode,
+	resolveProxyStatus,
 	// build artifacts
 	resolveBuildInfo,
 	findDbgFiles,

@@ -120,6 +120,17 @@ Verify many (sequential). Each target is a `verifyContract` opts object; `shared
 ### Helpers
 `resolveBuildInfo({contractName, sourceName?, artifactsRoot?})`, `listArtifacts(artifactsRoot?)`, `resolveEvmAddress({env, address?, contractId?})`, `getContractEvmAddress(env, id)`, `checkVerified({apiUrl?, chainId, address})`, `chainIdForEnv(env)`, `hashscanNetwork(env)`, `loadConfig(cwd?)`, `buildRegistryTargets(registry, {only?})`, `parseAdHocTarget(token)`.
 
+### EIP-1167 minimal-proxy / clone resolution
+Clones deployed via `Clones.cloneDeterministic` (e.g. per-user "stash" contracts) are ~45-byte EIP-1167 minimal proxies. They **cannot be source-verified** on Sourcify (no `.sol` compiles to the bare proxy) — verify the *implementation* once, then resolve clones to it:
+
+- `resolveProxyStatus({env, address|contractId, expectedImplementation?, apiUrl?})` → `{ isProxy, proxyType, implementation, isCanonical, implementationVerified, implementationMatch, bytecode, hashscanUrl }`. The function a DApp uses to present a clone with its implementation's name/ABI, and an audit uses to validate clones against an expected implementation. Browser-safe.
+- `parseMinimalProxyImplementation(bytecode)` → impl address (0x) or null.
+- `isMinimalProxyFor(bytecode, impl)` → boolean (canonical match).
+- `minimalProxyRuntime(impl)` → the canonical EIP-1167 runtime for an impl.
+- `getOnchainRuntimeBytecode(env, addressOrId)` → runtime bytecode from the mirror node.
+
+Note: most explorers (Etherscan/Blockscout) surface a clone's implementation via EIP-1167 detection in the UI. HashScan currently derives "verified" purely from Sourcify, so a clone shows unverified there — resolve it DApp-side with `resolveProxyStatus`.
+
 ## Match grades
 
 - **`exact_match`** — full match including metadata. The strongest grade.

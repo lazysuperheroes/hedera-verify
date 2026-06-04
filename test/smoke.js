@@ -69,6 +69,23 @@ check('parseAdHocTarget address + sourceName form', () => {
 	assert.strictEqual(t.sourceName, 'contracts/legacy/Foo.sol');
 });
 
+const IMPL = '0x00000000000000000000000000000000008a48c2';
+const PROXY = '0x363d3d373d3d3d363d7300000000000000000000000000000000008a48c25af43d82803e903d91602b57fd5bf3';
+
+check('minimalProxyRuntime builds the canonical EIP-1167 runtime', () => {
+	assert.strictEqual(api.minimalProxyRuntime(IMPL), PROXY);
+});
+
+check('parseMinimalProxyImplementation extracts the impl', () => {
+	assert.strictEqual(api.parseMinimalProxyImplementation(PROXY), IMPL);
+	assert.strictEqual(api.parseMinimalProxyImplementation('0xdeadbeef'), null);
+});
+
+check('isMinimalProxyFor matches only the right impl', () => {
+	assert.strictEqual(api.isMinimalProxyFor(PROXY, IMPL), true);
+	assert.strictEqual(api.isMinimalProxyFor(PROXY, '0x0000000000000000000000000000000000000001'), false);
+});
+
 if (failures) {
 	console.log(`\n${failures} check(s) failed`);
 	process.exit(1);

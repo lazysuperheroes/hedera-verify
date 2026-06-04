@@ -1,7 +1,7 @@
 {
   "name": "@lazysuperheroes/hedera-verify",
-  "version": "0.1.0",
-  "description": "Verify Hedera smart contracts on Sourcify (sourcify.dev V2 API) — engine, CLI, and deploy-time hook for Hardhat-built Hedera contracts.",
+  "version": "0.2.0",
+  "description": "Verify Hedera smart contracts on Sourcify (sourcify.dev V2 API) — engine, CLI, deploy-time hook, and EIP-1167 clone resolution for Hardhat-built Hedera contracts.",
   "license": "ISC",
   "author": "Stowerling <stowerling@hbarbarians.co.uk>",
   "homepage": "https://github.com/lazysuperheroes/hedera-verify#readme",
